@@ -52,7 +52,7 @@ type Mutation {
   # post a new link
   post(url: String!, description: String!): Link!
   # signup a user
-  signup(email: String!, password: String!, name: String): AuthPayload
+  signup(email: String!, password: String!, name: String!): AuthPayload
   # login a user
   login(email: String!, password: String!): AuthPayload
   # update a link

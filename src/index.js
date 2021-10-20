@@ -64,7 +64,7 @@ import { getUserId } from "./utils.js";
         console.log("Connected", Date());
         return { prisma, pubsub };
       },
-      onDisconnect: () => console.log("Disconnected"),
+      onDisconnect: () => console.log("Disconnected", Date()),
     },
     {
       server: httpServer,
