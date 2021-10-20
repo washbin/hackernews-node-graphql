@@ -1,0 +1,69 @@
+type Link {
+  id: ID!
+  description: String!
+  url: String!
+  postedBy: User
+  votes: [Vote!]!
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  links: [Link!]!
+}
+
+type AuthPayload {
+  token: String
+  user: User
+}
+
+type Vote {
+  id: ID!
+  link: Link!
+  user: User!
+}
+
+input LinkOrderByInput {
+  description: Sort
+  url: Sort
+  createdAt: Sort
+}
+
+enum Sort {
+  asc
+  desc
+}
+
+type Feed {
+  links: [Link!]!
+  count: Int!
+}
+
+type Query {
+  info: String!
+  # fetch a list of links
+  feed(filter: String, skip: Int, take: Int, orderBy: LinkOrderByInput): Feed!
+  # fetch a single link by its id
+  link(id: ID!): Link
+}
+
+type Mutation {
+  # post a new link
+  post(url: String!, description: String!): Link!
+  # signup a user
+  signup(email: String!, password: String!, name: String): AuthPayload
+  # login a user
+  login(email: String!, password: String!): AuthPayload
+  # update a link
+  updateLink(id: ID!, url: String, description: String): Link
+  # delete a link
+  deleteLink(id: ID!): Link
+  # vote a link
+  vote(linkId: ID!): Vote
+}
+
+type Subscription {
+  newLink: Link
+  newVote: Vote
+}
