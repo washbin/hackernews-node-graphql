@@ -3,8 +3,10 @@
 FROM node:14.17-alpine
 
 WORKDIR /app
-COPY package*.json .
-RUN npm install
+COPY package.json .
+COPY yarn.lock .
+RUN export NODE_ENV=production
+RUN yarn install --production --frozen-lockfile
 COPY . .
-RUN npx prisma generate
-CMD npm run dev
+RUN yarn prisma generate
+CMD ["yarn", "run", "dev"]
