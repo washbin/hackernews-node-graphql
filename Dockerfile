@@ -1,6 +1,7 @@
 # syntax=docker/dockerfile:1
 
 FROM node:14.17-alpine
+EXPOSE 4000
 
 WORKDIR /app
 COPY package.json .
