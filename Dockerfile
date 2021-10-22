@@ -4,9 +4,8 @@ FROM node:14.17-alpine
 EXPOSE 4000
 
 WORKDIR /app
-COPY package.json .
-COPY yarn.lock .
-RUN export NODE_ENV=production
+COPY package.json yarn.lock .
+ENV NODE_ENV=production
 RUN yarn install --production --frozen-lockfile
 COPY . .
 RUN yarn prisma generate
